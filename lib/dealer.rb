@@ -1,15 +1,10 @@
-class Dealer  #継承を使う予定
-    attr_accessor :hand
+require_relative '../lib/participant'
+class Dealer < Participant
+    attr_accessor :score
 
     def initialize(deck)
-        @hand = []
-        2.times do
-            draw(deck)
-        end
-    end
-
-    def draw(deck)
-        @hand << deck.cards.pop
+        super(deck)
+        @score = 0
     end
 
     def show_one_hand
@@ -24,6 +19,4 @@ class Dealer  #継承を使う予定
         end
         visualized_hand
     end
-
-
 end

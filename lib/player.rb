@@ -1,52 +1,17 @@
-class Player  #継承を使う予定
-    attr_accessor :hand, :score
+require_relative '../lib/participant'
+class Player < Participant
+    attr_accessor :score
 
     def initialize(deck)
-        @hand = []
-        2.times do
-            draw(deck)
-        end
+        super(deck)
         @score = 0
     end
 
-    def draw(deck)
-        @hand << deck.cards.pop
-    end
-
-    def show_hand
+    def show_player_hands
         visualized_hand = "Your hand:"
         @hand.each do |card|
             visualized_hand += " " + card.to_s + " | "
         end
         visualized_hand
     end
-
-    def calc_score
-        values = ['Ace','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
-
-        @hand.each do |card|
-            @score += values.index(card.to_s_only_value) + 1 >= 11 ? 10 : values.index(card.to_s_only_value) + 1
-        end
-        ace = count_ace
-        if ace > 0
-            while ace > 0 
-                if @score < 21
-                    @score += 10
-                    ace -= 1
-                elsif @score > 21
-                    @score -= 10
-                    ace -= 1
-                end
-            end
-        end
-        @score
-    end
-
-    private
-
-        def count_ace
-            count = 0
-            @hand.each { |card| count += 1 if card.to_s_only_value == "Ace" }
-            count
-        end
 end
