@@ -1,7 +1,7 @@
 require_relative '../lib/card'
 class Deck 
     SUITS = ['Hearts', 'Diamonds', 'Clubs', 'Spades']
-    VALUES = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eignt', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace']
+    VALUES = ['Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King', 'Ace']
 
     attr_accessor :cards
 
@@ -10,7 +10,7 @@ class Deck
         SUITS.each do |suit|
         VALUES.each do |value|
             card = Card.new(suit, value)
-            @cards << card.to_s
+            @cards << card
             end
         end
         # ここにシャッフルを入れるかは考え中

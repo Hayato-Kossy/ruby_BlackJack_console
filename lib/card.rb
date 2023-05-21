@@ -9,4 +9,8 @@ class Card
     def to_s
         "#{value} of #{suit}"
     end
+
+    def to_s_only_value
+        "#{value}"
+    end
 end
