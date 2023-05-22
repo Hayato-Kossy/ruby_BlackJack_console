@@ -36,9 +36,9 @@ class TableBlackJack
         puts "========================================================================"
         puts "Final hand"
         puts
-        @dealer.show_all_hands
+        show_score_and_hands(@dealer)
         puts "========================================================================"
-        @player.show_all_hands   
+        show_score_and_hands(@player) 
         puts "========================================================================"
         puts
         puts message
@@ -79,12 +79,7 @@ class TableBlackJack
 
     def show_score_and_hands(participant)
         participant.show_all_hands
-        puts participant.score
-    end
-
-    def show_score_and_one_hand(participant)
-        participant.show_one_hand
-        puts participant.score
+        puts participant.player_message + " " + participant.score.to_s
     end
 
     def prompt_user
