@@ -1,11 +1,13 @@
 class Participant
-    attr_accessor :hand
+    attr_accessor :hand, :score, :status
 
     def initialize(deck)
         @hand = []
         2.times do
             draw(deck)
         end
+        @score = 0
+        @status = "Playing" #BlackJack or Bust
     end
 
     def draw(deck)
@@ -13,6 +15,7 @@ class Participant
     end
 
     def calc_score
+        @score = 0
         values = ['Ace','Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Jack', 'Queen', 'King']
 
         @hand.each do |card|

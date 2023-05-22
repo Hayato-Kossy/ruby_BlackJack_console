@@ -1,10 +1,10 @@
 require_relative '../lib/participant'
 class Player < Participant
-    attr_accessor :score
+    attr_accessor :action
 
     def initialize(deck)
         super(deck)
-        @score = 0
+        @action = ""
     end
 
     def show_player_hands
@@ -12,6 +12,6 @@ class Player < Participant
         @hand.each do |card|
             visualized_hand += " " + card.to_s + " | "
         end
-        visualized_hand
+        puts visualized_hand
     end
 end
