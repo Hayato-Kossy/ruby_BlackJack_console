@@ -19,7 +19,7 @@ class TableBlackJack
             message = "Dealer Win"
         elsif @player.status != "Bust" && @dealer.status == "Bust"
             message = "You Win"
-        elsif @player.status == "Bust" && @dealer.status != "Bust"
+        elsif @player.status == "Bust"
             message = "Dealer Win"
         elsif @player.score > @dealer.score
             message = "You Win"
@@ -55,6 +55,7 @@ class TableBlackJack
                     break
                 end
                 @dealer.draw(@deck)
+                status_process(@player)
                 status_process(@dealer)
                 @dealer.show_one_hand
                 @player.show_all_hands    
@@ -83,8 +84,7 @@ class TableBlackJack
     end
 
     def prompt_user
-        @dealer.show_one_hand
-        @player.show_all_hands
+        putting_on_cards
         if @player.status == "Bust"
             game_process("Bust")
             return 
@@ -97,6 +97,14 @@ class TableBlackJack
             puts "無効なアクションです。'hit' または 'stand' を入力してください。"
             prompt_user  # 入力が無効だった場合、ユーザーに再度プロンプトを表示します
         end
+    end
+
+    def putting_on_cards
+        puts "========================================================================"
+        @dealer.show_one_hand
+        puts "========================================================================"
+        @player.show_all_hands
+        puts "========================================================================"
     end
 end
 
