@@ -1,17 +1,10 @@
 require_relative '../lib/participant'
 class Player < Participant
-    attr_accessor :action
+    attr_accessor :action, :player_message
 
     def initialize(deck)
         super(deck)
         @action = ""
-    end
-
-    def show_player_hands
-        visualized_hand = "Your hand:"
-        @hand.each do |card|
-            visualized_hand += " " + card.to_s + " | "
-        end
-        puts visualized_hand
+        @player_message = "Your hand:"
     end
 end

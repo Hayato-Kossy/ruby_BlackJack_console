@@ -1,5 +1,5 @@
 class Participant
-    attr_accessor :hand, :score, :status
+    attr_accessor :hand, :score, :status, :message
 
     def initialize(deck)
         @hand = []
@@ -8,6 +8,7 @@ class Participant
         end
         @score = 0
         @status = "Playing" #BlackJack or Bust
+        @message = ""
     end
 
     def draw(deck)
@@ -34,6 +35,19 @@ class Participant
             end
         end
         @score
+    end
+
+    def show_one_hand
+        @message = @hand[0].to_s + " | "
+        puts @player_message + @message
+    end
+
+    def show_all_hands
+        @hand.each do |card|
+            @message +=  " " + card.to_s + " | "
+        end
+        puts @player_message + @message
+        @message = ""
     end
 
     private
