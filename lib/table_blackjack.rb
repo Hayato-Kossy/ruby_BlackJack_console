@@ -28,42 +28,44 @@ class TableBlackJack
         elsif @player.status == @dealer.status or @player.score == @dealer.score
             message = "Draw"
         end
-        # @dealer.show_all_hands
-        # puts @dealer.score
-        # @player.show_all_hands
-        # puts @player.score
         message
     end
 
-    def game_process(action)
-        if @player.status != "Bust"
-            @player.action = action
-        end
+    def result_message
+        message = evaluate_winner
+        puts "========================================================================"
+        puts "Final hand"
+        puts
+        @dealer.show_all_hands
+        puts "========================================================================"
+        @player.show_all_hands   
+        puts "========================================================================"
+        puts
+        puts message
+    end
 
-        if @player.action == "stand" or @player.status != "Bust"
+    def game_process(action)
+        @player.action = action
+        if @player.action == "stand" or @player.status == "Bust"
             @player.calc_score
-            # @player.status = "Player_Finished"
-            while @dealer.calc_score < 16
+            @dealer.calc_score
+            @player.status = "Player_Finished"
+            while @dealer.score < 16
+                if @dealer.calc_score >= 16
+                    break
+                end
                 @dealer.draw(@deck)
-                @dealer.calc_score
-                @dealer.show_all_hands
-                puts @dealer.score
-                
-                @player.show_all_hands
-                puts @player.score
-                
                 status_process(@dealer)
+                @dealer.show_one_hand
+                @player.show_all_hands    
             end
-            evaluate_winner
-        elsif action == "hit"
+            result_message
+        elsif @player.action == "hit"
             @player.draw(@deck)
             @player.calc_score
             @dealer.calc_score
             status_process(@player)
-            @dealer.show_one_hand
-            puts @dealer.score 
-            @player.show_all_hands
-            puts @player.score
+            prompt_user
         end
     end
 
@@ -74,8 +76,35 @@ class TableBlackJack
             participant.status = "Bust"
         end
     end
+
+    def show_score_and_hands(participant)
+        participant.show_all_hands
+        puts participant.score
+    end
+
+    def show_score_and_one_hand(participant)
+        participant.show_one_hand
+        puts participant.score
+    end
+
+    def prompt_user
+        @dealer.show_one_hand
+        @player.show_all_hands
+        if @player.status == "Bust"
+            game_process("Bust")
+            return 
+        end
+        puts "ヒットするかスタンドするか選んでください ('hit' または 'stand')"
+        action = gets.chomp.downcase  # ユーザーの入力を取得し、末尾の改行文字を削除します
+        if ['hit', 'stand'].include?(action)
+            game_process(action)
+        else
+            puts "無効なアクションです。'hit' または 'stand' を入力してください。"
+            prompt_user  # 入力が無効だった場合、ユーザーに再度プロンプトを表示します
+        end
+    end
 end
 
 
 table = TableBlackJack.new
-table.game_process("stand")
+table.prompt_user

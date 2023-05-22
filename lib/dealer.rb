@@ -4,6 +4,6 @@ class Dealer < Participant
 
     def initialize(deck)
         super(deck)
-        @player_message = "Dealer's hand:"
+        @player_message = "Dealer's hand: "
     end
 end
