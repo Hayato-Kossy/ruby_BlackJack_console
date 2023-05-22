@@ -19,7 +19,7 @@ class TableBlackJack
             message = "Dealer Win"
         elsif @player.status != "Bust" && @dealer.status == "Bust"
             message = "You Win"
-        elsif @player.status == "Bust"
+        elsif @player.status == "Bust" && @dealer.status != "Bust"
             message = "Dealer Win"
         elsif @player.score > @dealer.score
             message = "You Win"
@@ -84,7 +84,7 @@ class TableBlackJack
     end
 
     def prompt_user
-        putting_on_cards
+
         if @player.status == "Bust"
             game_process("Bust")
             return 
